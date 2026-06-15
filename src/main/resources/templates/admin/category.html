@@ -109,7 +109,7 @@
 
 											<li th:each="i:${#numbers.sequence(1,totalPages)}"
 												class="page-item"
-												th:classappend="${pageNo+1==i}?'active':''" ]]><a
+												th:classappend="${pageNo+1==i}?'active':''"><a
 												class="page-link"
 												th:href="@{'/admin/category?pageNo='+${i-1}}">[[${i}]]</a></li>
 

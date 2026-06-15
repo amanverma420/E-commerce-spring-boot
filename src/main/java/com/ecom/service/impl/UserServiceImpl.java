@@ -103,7 +103,12 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void resetAttempt(int userId) {
-
+		Optional<UserDtls> findByUser = userRepository.findById(userId);
+		if (findByUser.isPresent()) {
+			UserDtls userDtls = findByUser.get();
+			userDtls.setFailedAttempt(0);
+			userRepository.save(userDtls);
+		}
 	}
 
 	@Override

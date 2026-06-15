@@ -178,8 +178,7 @@ public class HomeController {
 	}
 
 	@PostMapping("/forgot-password")
-	public String processForgotPassword(@RequestParam String email, HttpSession session, HttpServletRequest request)
-			throws UnsupportedEncodingException, MessagingException {
+	public String processForgotPassword(@RequestParam String email, HttpSession session, HttpServletRequest request) {
 
 		UserDtls userByEmail = userService.getUserByEmail(email);
 
@@ -195,12 +194,17 @@ public class HomeController {
 
 			String url = CommonUtil.generateUrl(request) + "/reset-password?token=" + resetToken;
 
-			Boolean sendMail = commonUtil.sendMail(url, email);
+			try {
+				Boolean sendMail = commonUtil.sendMail(url, email);
 
-			if (sendMail) {
-				session.setAttribute("succMsg", "Please check your email..Password Reset link sent");
-			} else {
-				session.setAttribute("errorMsg", "Somethong wrong on server ! Email not send");
+				if (sendMail) {
+					session.setAttribute("succMsg", "Please check your email..Password Reset link sent");
+				} else {
+					session.setAttribute("errorMsg", "Something went wrong on server ! Email not sent");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				session.setAttribute("errorMsg", "Failed to send reset email: " + e.getMessage());
 			}
 		}
 

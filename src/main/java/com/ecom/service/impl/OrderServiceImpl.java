@@ -35,6 +35,7 @@ public class OrderServiceImpl implements OrderService {
 	@Autowired
 	private CommonUtil commonUtil;
 
+	@org.springframework.transaction.annotation.Transactional
 	@Override
 	public void saveOrder(Integer userid, OrderRequest orderRequest) throws Exception {
 
@@ -69,8 +70,16 @@ public class OrderServiceImpl implements OrderService {
 			order.setOrderAddress(address);
 
 			ProductOrder saveOrder = orderRepository.save(order);
-			resetCart(cart.getUser());
-			commonUtil.sendMailForProductOrder(saveOrder, "success");
+			try {
+				commonUtil.sendMailForProductOrder(saveOrder, "success");
+			} catch (Exception e) {
+				// Don't fail the order if email notification fails
+				e.printStackTrace();
+			}
+		}
+
+		if (!carts.isEmpty()) {
+			resetCart(carts.get(0).getUser());
 		}
 	}
 	private void resetCart(UserDtls user) {
