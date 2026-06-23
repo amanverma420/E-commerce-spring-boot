@@ -175,7 +175,7 @@ public class HomeController {
 
 	@GetMapping("/forgot-password")
 	public String showForgotPassword() {
-		return "forgot_password.html";
+		return "forgot_password";
 	}
 
 	@PostMapping("/forgot-password")

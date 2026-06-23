@@ -304,7 +304,7 @@ public class AdminController {
 		}
 		m.addAttribute("userType",type);
 		m.addAttribute("users", users);
-		return "/admin/users";
+		return "admin/users";
 	}
 
 	@GetMapping("/updateSts")
@@ -336,7 +336,7 @@ public class AdminController {
 		m.addAttribute("isFirst", page.isFirst());
 		m.addAttribute("isLast", page.isLast());
 
-		return "/admin/orders";
+		return "admin/orders";
 	}
 
 	@PostMapping("/update-order-status")
@@ -401,13 +401,13 @@ public class AdminController {
 			m.addAttribute("isLast", page.isLast());
 
 		}
-		return "/admin/orders";
+		return "admin/orders";
 
 	}
 
 	@GetMapping("/add-admin")
 	public String loadAdminAdd() {
-		return "/admin/add_admin";
+		return "admin/add_admin";
 	}
 
 	@PostMapping("/save-admin")
@@ -439,7 +439,7 @@ public class AdminController {
 
 	@GetMapping("/profile")
 	public String profile() {
-		return "/admin/profile";
+		return "admin/profile";
 	}
 
 	@PostMapping("/update-profile")
