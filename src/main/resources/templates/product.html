@@ -52,21 +52,23 @@
 							<div class="row">
 
 								<th:block th:if="${productsSize >0}">
-									<div class="col-md-3 mt-2" th:each="p:${products}">
-										<div class="card card-sh">
-											<div class="card-body text-center">
-												<img alt="" th:src="@{'/img/product_img/'+${p.image}}"
-													width="150px" height="150px">
-												<p class="fs-5 text-center">[[${p.title}]]</p>
-												<div class="row text-center">
-													<p class="fs-6 fw-bold ">
+									<div class="col-md-3 mt-2 mb-3" th:each="p:${products}">
+										<div class="card card-sh h-100">
+											<div class="card-body product-card-body text-center">
+												<div class="product-img-wrapper">
+													<img alt="product" th:src="@{'/img/product_img/'+${p.image}}"
+														class="product-img">
+												</div>
+												<p class="fs-5 text-center fw-semibold text-dark">[[${p.title}]]</p>
+												<div class="row text-center mt-auto">
+													<p class="fs-6 fw-bold mb-2">
 														<span><th:block th:utext="${@commnServiceImpl.rupeeSign()}"></th:block> [[${p.discountPrice}]]</span> <br> <span
 															class="text-decoration-line-through text-secondary"><th:block th:utext="${@commnServiceImpl.rupeeSign()}"></th:block>
 															[[${p.price}]]</span> <span class="fs-6 text-success">[[${p.discount}]]%
 															off </span>
 													</p>
 													<a th:href="@{'/product/'+${p.id}}"
-														class="btn btn-primary col-md-6 offset-md-3">View
+														class="btn btn-primary col-md-8 offset-md-2 btn-sm rounded-pill">View
 														Details</a>
 												</div>
 											</div>
