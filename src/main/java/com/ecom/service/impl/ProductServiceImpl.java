@@ -87,10 +87,13 @@ public class ProductServiceImpl implements ProductService {
 			if (!image.isEmpty()) {
 
 				try {
-					File saveFile = new ClassPathResource("static/img").getFile();
-
-					Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
+					File uploadDir = new File("uploads");
+					if (!uploadDir.exists()) {
+						uploadDir.mkdirs();
+					}
+					Path path = Paths.get(uploadDir.getAbsolutePath() + File.separator + "product_img" + File.separator
 							+ image.getOriginalFilename());
+					path.getParent().toFile().mkdirs();
 					Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
 				} catch (Exception e) {
